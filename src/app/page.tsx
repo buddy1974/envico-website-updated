@@ -430,7 +430,16 @@ export default function Home() {
           </div>
 
           <div className="border-t border-gray-700 pt-6 text-center text-xs text-gray-500">
-            © 2026 Envico Supported Living LTD. All rights reserved. |{" "}
+            © 2026 Envico Supported Living LTD. All rights reserved. | Developed by{" "}
+            <a
+              href="https://maxpromo.digital"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-green-400 hover:underline"
+            >
+              maxpromo.digital
+            </a>{" "}
+            |{" "}
             <Link href="/privacy" className="hover:text-gray-300">
               Privacy Policy
             </Link>{" "}
