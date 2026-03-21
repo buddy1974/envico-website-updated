@@ -37,7 +37,7 @@ const services = [
     Icon: Infinity,
     color: "bg-envico-blue",
     title: "Autism Support",
-    image: "/images/supported-living.png",
+    image: "/images/autism-suppport.png",
     tagline: "Structured, sensory-aware environments and consistent routines",
     description:
       "Our autism-specialist staff create calm, predictable environments tailored to the sensory and communication needs of each autistic adult. We follow low-arousal approaches and work with individuals to understand their preferences and reduce anxiety.",

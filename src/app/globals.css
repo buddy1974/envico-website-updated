@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 @theme {
+  /* Envico brand colors */
+  --color-envico-blue: #1EAFFF;
+  --color-envico-navy: #0a2a5e;
   --color-envico-green: #2d7a3a;
   --color-envico-green-dark: #1e5527;
   --color-envico-green-light: #f0f7f1;
-  --color-envico-blue: #1a4a8a;
-  --color-envico-blue-dark: #0f2f5c;
   --color-envico-gold: #e8a020;
   --color-envico-dark: #1a1a2e;
+  --color-envico-cqc: #7b2d8b;
 
   --font-sans: var(--font-inter);
 }

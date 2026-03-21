@@ -11,19 +11,85 @@ export const metadata: Metadata = {
     "Bishops House is Envico's supported living property in Hayes, Middlesex. 6 en-suite bedrooms, communal lounge, garden and 24/7 staffed support for adults with learning disabilities and autism.",
 };
 
-const galleryAll = [
-  "JR_EngelbertForbia_002-scaled.jpg",
-  "JR_EngelbertForbia_007-scaled.jpg",
-  "JR_EngelbertForbia_017-scaled.jpg",
-  "JR_EngelbertForbia_020-scaled.jpg",
-  "JR_EngelbertForbia_021-scaled.jpg",
-  "JR_EngelbertForbia_025-1-scaled.jpg",
-  "JR_EngelbertForbia_027-scaled.jpg",
-  "JR_EngelbertForbia_028-scaled.jpg",
-  "JR_EngelbertForbia_030-scaled.jpg",
-  "JR_EngelbertForbia_033-scaled.jpg",
-  "JR_EngelbertForbia_035-scaled.jpg",
-  "JR_EngelbertForbia_037-scaled.jpg",
+const gallerySections = [
+  {
+    heading: "Welcome to Bishops House",
+    cta: "A warm, homely environment staffed 24/7",
+    photos: [
+      { file: "JR_EngelbertForbia_002-scaled.jpg", alt: "Bishops House exterior front" },
+      { file: "JR_EngelbertForbia_007-scaled.jpg", alt: "Bishops House exterior" },
+    ],
+  },
+  {
+    heading: "Spacious En-Suite Bedrooms",
+    cta: "Each resident has their own private, fully furnished bedroom",
+    photos: [
+      { file: "JR_EngelbertForbia_017-scaled.jpg", alt: "En-suite bedroom" },
+      { file: "JR_EngelbertForbia_020-scaled.jpg", alt: "Double bedroom" },
+      { file: "JR_EngelbertForbia_021-scaled.jpg", alt: "Bedroom interior" },
+    ],
+  },
+  {
+    heading: "Comfortable Communal Living",
+    cta: "Spacious areas to relax, socialise and feel at home",
+    photos: [
+      { file: "JR_EngelbertForbia_025-1-scaled.jpg", alt: "Communal lounge" },
+      { file: "JR_EngelbertForbia_027-scaled.jpg", alt: "Living area" },
+      { file: "JR_EngelbertForbia_028-scaled.jpg", alt: "Sitting room" },
+    ],
+  },
+  {
+    heading: "Shared Dining & Kitchen",
+    cta: "Fully equipped kitchen with a welcoming dining space",
+    photos: [
+      { file: "JR_EngelbertForbia_030-scaled.jpg", alt: "Dining area" },
+      { file: "JR_EngelbertForbia_033-scaled.jpg", alt: "Kitchen and dining" },
+    ],
+  },
+  {
+    heading: "Personal, Homely Spaces",
+    cta: "Rooms personalised to each resident's taste and needs",
+    photos: [
+      { file: "JR_EngelbertForbia_035-scaled.jpg", alt: "Bedroom" },
+      { file: "JR_EngelbertForbia_037-scaled.jpg", alt: "Bedroom" },
+      { file: "JR_EngelbertForbia_039-scaled.jpg", alt: "Bedroom interior" },
+    ],
+  },
+  {
+    heading: "Modern En-Suite Facilities",
+    cta: "Private shower rooms in every bedroom",
+    photos: [
+      { file: "JR_EngelbertForbia_040-scaled.jpg", alt: "En-suite bathroom" },
+      { file: "JR_EngelbertForbia_042-scaled.jpg", alt: "Modern bathroom" },
+      { file: "JR_EngelbertForbia_043-scaled.jpg", alt: "En-suite facilities" },
+    ],
+  },
+  {
+    heading: "Beautiful Garden & Outdoor Space",
+    cta: "A landscaped garden for relaxation and activities",
+    photos: [
+      { file: "JR_EngelbertForbia_044-scaled.jpg", alt: "Garden" },
+      { file: "JR_EngelbertForbia_047-scaled.jpg", alt: "Outdoor space" },
+      { file: "JR_EngelbertForbia_051-scaled.jpg", alt: "Garden area" },
+    ],
+  },
+  {
+    heading: "Welcoming Common Areas",
+    cta: "Bright, comfortable spaces shared by all residents",
+    photos: [
+      { file: "JR_EngelbertForbia_052-scaled.jpg", alt: "Common area" },
+      { file: "JR_EngelbertForbia_053-scaled.jpg", alt: "Communal space" },
+      { file: "JR_EngelbertForbia_054-scaled.jpg", alt: "Lounge area" },
+    ],
+  },
+  {
+    heading: "Fully Furnished Rooms",
+    cta: "Move in ready — everything provided",
+    photos: [
+      { file: "JR_EngelbertForbia_056-scaled.jpg", alt: "Furnished room" },
+      { file: "JR_EngelbertForbia_057-scaled.jpg", alt: "Bedroom with furniture" },
+    ],
+  },
 ];
 
 const facilities = [
@@ -164,28 +230,46 @@ export default function BishopsHousePage() {
         </div>
       </section>
 
-      {/* Gallery */}
+      {/* Gallery — grouped by section */}
       <section className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2 text-center">
             Photo Gallery
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {galleryAll.map((img) => (
-              <div
-                key={img}
-                className="relative aspect-square rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-              >
-                <Image
-                  src={`/images/gallery/${img}`}
-                  alt="Bishops House"
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-300"
-                />
+          <p className="text-gray-500 text-center text-sm mb-12">
+            A full tour of Bishops House, Hayes
+          </p>
+          <div className="space-y-12">
+            {gallerySections.map((section) => (
+              <div key={section.heading}>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">{section.heading}</h3>
+                    <p className="text-sm text-envico-green">{section.cta}</p>
+                  </div>
+                </div>
+                <div className={`grid gap-3 ${section.photos.length === 2 ? "grid-cols-2" : "grid-cols-2 md:grid-cols-3"}`}>
+                  {section.photos.map((photo) => (
+                    <div
+                      key={photo.file}
+                      className="relative aspect-video rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                    >
+                      <Image
+                        src={`/images/gallery/${photo.file}`}
+                        alt={photo.alt}
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-3 py-2">
+                        <p className="text-white text-xs font-medium">{photo.alt}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
-          <div className="text-center mt-6">
+          <div className="text-center mt-10">
             <Link
               href="/gallery"
               className="text-sm font-medium text-envico-green hover:underline"

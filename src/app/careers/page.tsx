@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CareerApplicationForm from "@/components/CareerApplicationForm";
 
 export const metadata: Metadata = {
   title: "Careers | Envico Supported Living",
@@ -192,23 +193,16 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Application CTA */}
-      <section className="py-16 bg-green-50">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Don&apos;t See the Right Role?
-          </h2>
-          <p className="text-gray-600 mb-6">
-            We are always looking for passionate people. Send us your CV and a
-            short cover letter and we will be in touch when a suitable vacancy
-            arises.
-          </p>
-          <a
-            href="mailto:info@envicosl.co.uk?subject=Speculative Application"
-            className="inline-block bg-green-700 text-white font-semibold px-8 py-4 rounded-md hover:bg-green-800 transition-colors"
-          >
-            Send Speculative Application
-          </a>
+      {/* Multi-step application form */}
+      <section id="apply" className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Apply Online</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">
+              Complete our 5-step application. Full training provided — experience not always essential.
+            </p>
+          </div>
+          <CareerApplicationForm />
         </div>
       </section>
 

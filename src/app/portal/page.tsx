@@ -24,6 +24,9 @@ const portals = [
       "Document sharing",
     ],
     buttonLabel: "Family Login",
+    href: "/portal/family",
+    external: false,
+    note: null,
     color: "bg-envico-green",
     borderColor: "border-envico-green",
     textColor: "text-envico-green",
@@ -41,6 +44,9 @@ const portals = [
       "Daily notes and handover",
     ],
     buttonLabel: "Staff Login",
+    href: "https://envico-dashboard.vercel.app",
+    external: true,
+    note: "Your access level is determined by your account role",
     color: "bg-envico-blue",
     borderColor: "border-envico-blue",
     textColor: "text-envico-blue",
@@ -58,6 +64,9 @@ const portals = [
       "CQC evidence management",
     ],
     buttonLabel: "Manager Login",
+    href: "https://envico-dashboard.vercel.app",
+    external: true,
+    note: "Your access level is determined by your account role",
     color: "bg-envico-dark",
     borderColor: "border-gray-800",
     textColor: "text-gray-800",
@@ -89,7 +98,7 @@ export default function PortalPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {portals.map(({ Icon, title, tagline, description, features, buttonLabel, color, borderColor, textColor }) => (
+            {portals.map(({ Icon, title, tagline, description, features, buttonLabel, href, external, note, color, borderColor, textColor }) => (
               <div
                 key={title}
                 className={`bg-white rounded-2xl shadow-md border-t-4 ${borderColor} overflow-hidden hover:shadow-xl transition-shadow flex flex-col`}
@@ -115,12 +124,14 @@ export default function PortalPage() {
                       </li>
                     ))}
                   </ul>
+                  {note && (
+                    <p className="text-xs text-gray-400 mt-4 italic">{note}</p>
+                  )}
                 </div>
                 <div className="p-6 pt-0">
                   <a
-                    href="https://envico-dashboard.vercel.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={href}
+                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className={`block w-full text-center ${color} text-white font-semibold py-3 rounded-xl hover:opacity-90 transition-opacity`}
                   >
                     {buttonLabel} →

@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-300 ${
-        scrolled ? "shadow-md" : "shadow-sm"
+        scrolled ? "shadow-lg" : "shadow-sm"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,7 +53,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-gray-700 hover:text-envico-green transition-colors"
+                className="text-sm font-medium text-envico-navy hover:text-envico-blue transition-colors"
               >
                 {link.label}
               </Link>
@@ -64,13 +64,13 @@ export default function Navbar() {
           <div className="hidden xl:flex items-center gap-3">
             <Link
               href="/portal"
-              className="text-sm font-medium border border-envico-blue text-envico-blue px-4 py-2 rounded-md hover:bg-blue-50 transition-colors"
+              className="text-sm font-medium border-2 border-envico-navy text-envico-navy px-4 py-2 rounded-md hover:bg-envico-navy hover:text-white transition-colors"
             >
               Portal Login
             </Link>
             <Link
               href="/#referral"
-              className="text-sm font-medium bg-envico-green text-white px-4 py-2 rounded-md hover:bg-envico-green-dark transition-colors"
+              className="text-sm font-bold bg-envico-blue text-white px-5 py-2 rounded-md hover:opacity-90 transition-opacity shadow-sm"
             >
               Make a Referral
             </Link>
@@ -78,7 +78,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="xl:hidden p-2 text-gray-700"
+            className="xl:hidden p-2 text-envico-navy"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -95,7 +95,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-gray-700 hover:text-envico-green py-2.5 border-b border-gray-50"
+                className="text-sm font-medium text-envico-navy hover:text-envico-blue py-2.5 border-b border-gray-50"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
@@ -104,14 +104,14 @@ export default function Navbar() {
             <div className="flex flex-col gap-2 pt-3">
               <Link
                 href="/portal"
-                className="text-sm font-medium text-center border border-envico-blue text-envico-blue px-4 py-2.5 rounded-md"
+                className="text-sm font-medium text-center border-2 border-envico-navy text-envico-navy px-4 py-2.5 rounded-md hover:bg-envico-navy hover:text-white transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
                 Portal Login
               </Link>
               <Link
                 href="/#referral"
-                className="text-sm font-medium text-center bg-envico-green text-white px-4 py-2.5 rounded-md"
+                className="text-sm font-bold text-center bg-envico-blue text-white px-4 py-2.5 rounded-md hover:opacity-90 transition-opacity"
                 onClick={() => setMobileOpen(false)}
               >
                 Make a Referral
