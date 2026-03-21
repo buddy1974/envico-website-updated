@@ -6,12 +6,12 @@ import { useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import galleryDescs from "@/data/gallery-descriptions.json";
+import galleryDescriptions from "@/data/gallery-descriptions.json";
 
-const descs = galleryDescs as Record<string, { title: string; description: string }>;
+const descs = galleryDescriptions as Record<string, { title: string; description: string }>;
 
-// Ordered: exterior → living → kitchen → hallways → bedrooms → facilities
-const orderedFiles = [
+// Preferred display order: exterior → living → kitchen → hallways → bedrooms → facilities
+const preferredOrder = [
   "front.jpg",
   "back view with garden,.jpg",
   "communal living  dining area.jpg",
@@ -38,10 +38,18 @@ const orderedFiles = [
   "Professional Support Office.jpg",
 ];
 
+// Build from JSON keys, respecting preferred order, then append any extras
+const allKeys = Object.keys(descs);
+const orderedFiles = [
+  ...preferredOrder.filter((f) => allKeys.includes(f)),
+  ...allKeys.filter((f) => !preferredOrder.includes(f)),
+];
+
 const allPhotos = orderedFiles.map((file) => ({
   file,
   caption: descs[file]?.title ?? file,
   description: descs[file]?.description ?? "",
+  src: `/images/gallery/${file}`,
 }));
 
 export default function GalleryPage() {
@@ -81,7 +89,7 @@ export default function GalleryPage() {
               >
                 <div className="relative w-full">
                   <Image
-                    src={`/images/gallery/${photo.file}`}
+                    src={photo.src}
                     alt={photo.caption}
                     width={600}
                     height={400}
@@ -141,7 +149,7 @@ export default function GalleryPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={`/images/gallery/${allPhotos[lightbox].file}`}
+              src={allPhotos[lightbox].src}
               alt={allPhotos[lightbox].caption}
               width={1200}
               height={800}

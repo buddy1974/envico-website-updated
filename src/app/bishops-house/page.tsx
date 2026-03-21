@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 
 const makePhoto = (file: string) => ({
   file,
+  src: `/images/gallery/${file}`,
   alt: gd[file]?.title ?? file,
   caption: gd[file]?.description ?? "",
 });
@@ -276,7 +277,7 @@ export default function BishopsHousePage() {
                       className="relative aspect-video rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                     >
                       <Image
-                        src={`/images/gallery/${photo.file}`}
+                        src={photo.src}
                         alt={photo.alt}
                         fill
                         className="object-cover hover:scale-105 transition-transform duration-300"
