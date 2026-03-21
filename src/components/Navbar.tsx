@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
@@ -12,14 +12,27 @@ const navLinks = [
   { label: "Bishops House", href: "/bishops-house" },
   { label: "Funding", href: "/funding" },
   { label: "Gallery", href: "/gallery" },
+  { label: "Careers", href: "/careers" },
+  { label: "Resources", href: "/resources" },
   { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-300 ${
+        scrolled ? "shadow-md" : "shadow-sm"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -29,18 +42,18 @@ export default function Navbar() {
               alt="Envico Supported Living"
               width={180}
               height={60}
-              className="h-[60px] w-auto object-contain"
+              className="h-[56px] w-auto object-contain"
               priority
             />
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden xl:flex items-center gap-5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-gray-700 hover:text-green-700 transition-colors"
+                className="text-sm font-medium text-gray-700 hover:text-envico-green transition-colors"
               >
                 {link.label}
               </Link>
@@ -48,16 +61,16 @@ export default function Navbar() {
           </nav>
 
           {/* CTA buttons */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-3">
             <Link
               href="/portal"
-              className="text-sm font-medium border border-green-700 text-green-700 px-4 py-2 rounded-md hover:bg-green-50 transition-colors"
+              className="text-sm font-medium border border-envico-blue text-envico-blue px-4 py-2 rounded-md hover:bg-blue-50 transition-colors"
             >
               Portal Login
             </Link>
             <Link
-              href="#referral"
-              className="text-sm font-medium bg-green-700 text-white px-4 py-2 rounded-md hover:bg-green-800 transition-colors"
+              href="/#referral"
+              className="text-sm font-medium bg-envico-green text-white px-4 py-2 rounded-md hover:bg-envico-green-dark transition-colors"
             >
               Make a Referral
             </Link>
@@ -65,7 +78,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="lg:hidden p-2 text-gray-700"
+            className="xl:hidden p-2 text-gray-700"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -76,29 +89,29 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 px-4 pb-4">
-          <nav className="flex flex-col gap-3 pt-3">
+        <div className="xl:hidden bg-white border-t border-gray-100 px-4 pb-5 shadow-lg">
+          <nav className="flex flex-col gap-1 pt-3">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-gray-700 hover:text-green-700 py-1"
+                className="text-sm font-medium text-gray-700 hover:text-envico-green py-2.5 border-b border-gray-50"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="flex flex-col gap-2 pt-2 border-t border-gray-100">
+            <div className="flex flex-col gap-2 pt-3">
               <Link
                 href="/portal"
-                className="text-sm font-medium text-center border border-green-700 text-green-700 px-4 py-2 rounded-md"
+                className="text-sm font-medium text-center border border-envico-blue text-envico-blue px-4 py-2.5 rounded-md"
                 onClick={() => setMobileOpen(false)}
               >
                 Portal Login
               </Link>
               <Link
-                href="#referral"
-                className="text-sm font-medium text-center bg-green-700 text-white px-4 py-2 rounded-md"
+                href="/#referral"
+                className="text-sm font-medium text-center bg-envico-green text-white px-4 py-2.5 rounded-md"
                 onClick={() => setMobileOpen(false)}
               >
                 Make a Referral

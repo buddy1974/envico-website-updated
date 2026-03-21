@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Resources | Envico Supported Living",
@@ -234,14 +235,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#1a1a2e] text-gray-400 py-8 text-center text-sm">
-        <p>
-          © 2026 Envico Supported Living LTD |{" "}
-          <Link href="/" className="hover:text-green-400 transition-colors">
-            Back to Home
-          </Link>
-        </p>
-      </footer>
+      <Footer />
     </>
   );
 }
