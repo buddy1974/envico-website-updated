@@ -4,6 +4,9 @@ import Link from "next/link";
 import { CheckCircle, MapPin, Phone, BedDouble, Car, TreePine, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import galleryDescs from "@/data/gallery-descriptions.json";
+
+const gd = galleryDescs as Record<string, { title: string; description: string }>;
 
 export const metadata: Metadata = {
   title: "Bishops House, Hayes | Envico Supported Living",
@@ -11,83 +14,89 @@ export const metadata: Metadata = {
     "Bishops House is Envico's supported living property in Hayes, Middlesex. 6 en-suite bedrooms, communal lounge, garden and 24/7 staffed support for adults with learning disabilities and autism.",
 };
 
+const makePhoto = (file: string) => ({
+  file,
+  alt: gd[file]?.title ?? file,
+  caption: gd[file]?.description ?? "",
+});
+
 const gallerySections = [
   {
     heading: "Welcome to Bishops House",
     cta: "A warm, homely environment staffed 24/7",
     photos: [
-      { file: "JR_EngelbertForbia_002-scaled.jpg", alt: "Bishops House exterior front" },
-      { file: "JR_EngelbertForbia_007-scaled.jpg", alt: "Bishops House exterior" },
+      makePhoto("front.jpg"),
+      makePhoto("back view with garden,.jpg"),
     ],
   },
   {
     heading: "Spacious En-Suite Bedrooms",
     cta: "Each resident has their own private, fully furnished bedroom",
     photos: [
-      { file: "JR_EngelbertForbia_017-scaled.jpg", alt: "En-suite bedroom" },
-      { file: "JR_EngelbertForbia_020-scaled.jpg", alt: "Double bedroom" },
-      { file: "JR_EngelbertForbia_021-scaled.jpg", alt: "Bedroom interior" },
+      makePhoto("Bright Private Bedroom.jpg"),
+      makePhoto("Modern Supported Living Bedroom.jpg"),
+      makePhoto("Comfortable Private Bedroom.jpg"),
     ],
   },
   {
     heading: "Comfortable Communal Living",
     cta: "Spacious areas to relax, socialise and feel at home",
     photos: [
-      { file: "JR_EngelbertForbia_025-1-scaled.jpg", alt: "Communal lounge" },
-      { file: "JR_EngelbertForbia_027-scaled.jpg", alt: "Living area" },
-      { file: "JR_EngelbertForbia_028-scaled.jpg", alt: "Sitting room" },
+      makePhoto("communal living  dining area.jpg"),
+      makePhoto("bright, modern living room  dining area.jpg"),
+      makePhoto("bright, modern living room  dining area with view of garden.jpg"),
     ],
   },
   {
     heading: "Shared Dining & Kitchen",
     cta: "Fully equipped kitchen with a welcoming dining space",
     photos: [
-      { file: "JR_EngelbertForbia_030-scaled.jpg", alt: "Dining area" },
-      { file: "JR_EngelbertForbia_033-scaled.jpg", alt: "Kitchen and dining" },
+      makePhoto("Fully Equipped Care Home Kitchen.jpg"),
+      makePhoto("Spacious Independent Living Kitchen.jpg"),
     ],
   },
   {
     heading: "Personal, Homely Spaces",
     cta: "Rooms personalised to each resident's taste and needs",
     photos: [
-      { file: "JR_EngelbertForbia_035-scaled.jpg", alt: "Bedroom" },
-      { file: "JR_EngelbertForbia_037-scaled.jpg", alt: "Bedroom" },
-      { file: "JR_EngelbertForbia_039-scaled.jpg", alt: "Bedroom interior" },
+      makePhoto("Modern Care Home Bedroom.jpg"),
+      makePhoto("Clean and Spacious Bedroom.jpg"),
+      makePhoto("Modern Private Room.jpg"),
     ],
   },
   {
     heading: "Bright Hallways & Common Spaces",
     cta: "Light, accessible and welcoming throughout",
     photos: [
-      { file: "JR_EngelbertForbia_040-scaled.jpg", alt: "Hallway and staircase" },
-      { file: "JR_EngelbertForbia_042-scaled.jpg", alt: "Common corridor" },
-      { file: "JR_EngelbertForbia_043-scaled.jpg", alt: "Internal hallway" },
+      makePhoto("Bright and Clean Corridor.jpg"),
+      makePhoto("Spacious Interior Corridor.jpg"),
+      makePhoto("Bright Interior Hallway.jpg"),
     ],
   },
   {
-    heading: "Beautiful Garden & Outdoor Space",
-    cta: "A landscaped garden for relaxation and activities",
+    heading: "Further Resident Rooms",
+    cta: "Every room furnished and decorated to a high standard",
     photos: [
-      { file: "JR_EngelbertForbia_044-scaled.jpg", alt: "Garden" },
-      { file: "JR_EngelbertForbia_047-scaled.jpg", alt: "Outdoor space" },
-      { file: "JR_EngelbertForbia_051-scaled.jpg", alt: "Garden area" },
+      makePhoto("Well Maintained Bedroom.jpg"),
+      makePhoto("Cozy Supported Living Bedroom.jpg"),
+      makePhoto("Bright and Clean Resident Room.jpg"),
     ],
   },
   {
-    heading: "Welcoming Common Areas",
-    cta: "Bright, comfortable spaces shared by all residents",
-    photos: [
-      { file: "JR_EngelbertForbia_052-scaled.jpg", alt: "Common area" },
-      { file: "JR_EngelbertForbia_053-scaled.jpg", alt: "Communal space" },
-      { file: "JR_EngelbertForbia_054-scaled.jpg", alt: "Lounge area" },
-    ],
-  },
-  {
-    heading: "Fully Furnished Rooms",
+    heading: "More Private Bedrooms",
     cta: "Move in ready — everything provided",
     photos: [
-      { file: "JR_EngelbertForbia_056-scaled.jpg", alt: "Furnished room" },
-      { file: "JR_EngelbertForbia_057-scaled.jpg", alt: "Bedroom with furniture" },
+      makePhoto("Modern Residential Care Bedroom.jpg"),
+      makePhoto("Cozy Resident Bedroom.jpg"),
+      makePhoto("Clean Private Room.jpg"),
+    ],
+  },
+  {
+    heading: "Facilities",
+    cta: "Fully accessible bathroom and dedicated staff office on site",
+    photos: [
+      makePhoto("fully accessible bathroom.jpg"),
+      makePhoto("Professional Support Office.jpg"),
     ],
   },
 ];
@@ -112,7 +121,7 @@ export default function BishopsHousePage() {
       <section className="pt-20 relative min-h-[60vh] flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/gallery/JR_EngelbertForbia_002-scaled.jpg"
+            src="/images/gallery/front.jpg"
             alt="Bishops House exterior"
             fill
             className="object-cover"
@@ -272,8 +281,11 @@ export default function BishopsHousePage() {
                         fill
                         className="object-cover hover:scale-105 transition-transform duration-300"
                       />
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-3 py-2">
-                        <p className="text-white text-xs font-medium">{photo.alt}</p>
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2">
+                        <p className="text-white text-xs font-semibold leading-snug">{photo.alt}</p>
+                        {photo.caption && (
+                          <p className="text-gray-300 text-[10px] mt-0.5 leading-snug line-clamp-2">{photo.caption}</p>
+                        )}
                       </div>
                     </div>
                   ))}

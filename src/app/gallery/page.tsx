@@ -6,41 +6,53 @@ import { useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import galleryDescs from "@/data/gallery-descriptions.json";
 
-const allPhotos = [
-  { file: "JR_EngelbertForbia_002-scaled.jpg", caption: "Bishops House — Exterior" },
-  { file: "JR_EngelbertForbia_007-scaled.jpg", caption: "Bishops House — Garden" },
-  { file: "JR_EngelbertForbia_017-scaled.jpg", caption: "Bishops House — Bedroom" },
-  { file: "JR_EngelbertForbia_020-scaled.jpg", caption: "Bishops House — Bedroom" },
-  { file: "JR_EngelbertForbia_021-scaled.jpg", caption: "Bishops House — En-suite" },
-  { file: "JR_EngelbertForbia_025-1-scaled.jpg", caption: "Bishops House — Communal Lounge" },
-  { file: "JR_EngelbertForbia_027-scaled.jpg", caption: "Bishops House — Dining Area" },
-  { file: "JR_EngelbertForbia_028-scaled.jpg", caption: "Bishops House — Kitchen" },
-  { file: "JR_EngelbertForbia_030-scaled.jpg", caption: "Bishops House — Hallway" },
-  { file: "JR_EngelbertForbia_033-scaled.jpg", caption: "Bishops House — Bedroom" },
-  { file: "JR_EngelbertForbia_035-scaled.jpg", caption: "Bishops House — Lounge" },
-  { file: "JR_EngelbertForbia_037-scaled.jpg", caption: "Bishops House — Garden" },
-  { file: "JR_EngelbertForbia_039-scaled.jpg", caption: "Bishops House — Bedroom" },
-  { file: "JR_EngelbertForbia_040-scaled.jpg", caption: "Bishops House — En-suite" },
-  { file: "JR_EngelbertForbia_042-scaled.jpg", caption: "Bishops House — Exterior" },
-  { file: "JR_EngelbertForbia_043-scaled.jpg", caption: "Bishops House — Living Area" },
-  { file: "JR_EngelbertForbia_044-scaled.jpg", caption: "Bishops House — Bedroom" },
-  { file: "JR_EngelbertForbia_047-scaled.jpg", caption: "Bishops House — Communal Space" },
-  { file: "JR_EngelbertForbia_051-scaled.jpg", caption: "Bishops House — Dining" },
-  { file: "JR_EngelbertForbia_052-scaled.jpg", caption: "Bishops House — Garden" },
-  { file: "JR_EngelbertForbia_053-scaled.jpg", caption: "Bishops House — Lounge" },
-  { file: "JR_EngelbertForbia_054-scaled.jpg", caption: "Bishops House — Bedroom" },
-  { file: "JR_EngelbertForbia_056-scaled.jpg", caption: "Bishops House — Exterior" },
-  { file: "JR_EngelbertForbia_057-scaled.jpg", caption: "Bishops House — Garden" },
+const descs = galleryDescs as Record<string, { title: string; description: string }>;
+
+// Ordered: exterior → living → kitchen → hallways → bedrooms → facilities
+const orderedFiles = [
+  "front.jpg",
+  "back view with garden,.jpg",
+  "communal living  dining area.jpg",
+  "bright, modern living room  dining area.jpg",
+  "bright, modern living room  dining area with view of garden.jpg",
+  "Fully Equipped Care Home Kitchen.jpg",
+  "Spacious Independent Living Kitchen.jpg",
+  "Bright and Clean Corridor.jpg",
+  "Spacious Interior Corridor.jpg",
+  "Bright Interior Hallway.jpg",
+  "Bright Private Bedroom.jpg",
+  "Modern Supported Living Bedroom.jpg",
+  "Comfortable Private Bedroom.jpg",
+  "Modern Care Home Bedroom.jpg",
+  "Clean and Spacious Bedroom.jpg",
+  "Modern Private Room.jpg",
+  "Well Maintained Bedroom.jpg",
+  "Cozy Supported Living Bedroom.jpg",
+  "Bright and Clean Resident Room.jpg",
+  "Modern Residential Care Bedroom.jpg",
+  "Cozy Resident Bedroom.jpg",
+  "Clean Private Room.jpg",
+  "fully accessible bathroom.jpg",
+  "Professional Support Office.jpg",
 ];
+
+const allPhotos = orderedFiles.map((file) => ({
+  file,
+  caption: descs[file]?.title ?? file,
+  description: descs[file]?.description ?? "",
+}));
 
 export default function GalleryPage() {
   const [lightbox, setLightbox] = useState<number | null>(null);
 
   const openLightbox = (i: number) => setLightbox(i);
   const closeLightbox = () => setLightbox(null);
-  const prev = () => setLightbox((p) => (p !== null ? (p - 1 + allPhotos.length) % allPhotos.length : 0));
-  const next = () => setLightbox((p) => (p !== null ? (p + 1) % allPhotos.length : 0));
+  const prev = () =>
+    setLightbox((p) => (p !== null ? (p - 1 + allPhotos.length) % allPhotos.length : 0));
+  const next = () =>
+    setLightbox((p) => (p !== null ? (p + 1) % allPhotos.length : 0));
 
   return (
     <>
@@ -105,14 +117,20 @@ export default function GalleryPage() {
           </button>
           <button
             className="absolute left-4 top-1/2 -translate-y-1/2 text-white bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors"
-            onClick={(e) => { e.stopPropagation(); prev(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
             aria-label="Previous"
           >
             <ChevronLeft size={28} />
           </button>
           <button
             className="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors"
-            onClick={(e) => { e.stopPropagation(); next(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
             aria-label="Next"
           >
             <ChevronRight size={28} />
@@ -127,10 +145,16 @@ export default function GalleryPage() {
               alt={allPhotos[lightbox].caption}
               width={1200}
               height={800}
-              className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+              className="w-full h-auto max-h-[75vh] object-contain rounded-lg"
             />
             <p className="text-white text-center text-sm mt-3 font-medium">
-              {allPhotos[lightbox].caption} — {lightbox + 1} / {allPhotos.length}
+              {allPhotos[lightbox].caption}
+            </p>
+            <p className="text-gray-300 text-center text-xs mt-1 max-w-2xl mx-auto">
+              {allPhotos[lightbox].description}
+            </p>
+            <p className="text-gray-500 text-center text-xs mt-2">
+              {lightbox + 1} / {allPhotos.length}
             </p>
           </div>
         </div>

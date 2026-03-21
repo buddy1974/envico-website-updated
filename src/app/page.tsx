@@ -101,12 +101,12 @@ const bishopsFeatures = [
 ];
 
 const galleryImages = [
-  "JR_EngelbertForbia_002-scaled.jpg",
-  "JR_EngelbertForbia_007-scaled.jpg",
-  "JR_EngelbertForbia_017-scaled.jpg",
-  "JR_EngelbertForbia_020-scaled.jpg",
-  "JR_EngelbertForbia_021-scaled.jpg",
-  "JR_EngelbertForbia_025-1-scaled.jpg",
+  "front.jpg",
+  "bright, modern living room  dining area with view of garden.jpg",
+  "Bright Private Bedroom.jpg",
+  "Fully Equipped Care Home Kitchen.jpg",
+  "back view with garden,.jpg",
+  "Spacious Interior Corridor.jpg",
 ];
 
 export default function Home() {
@@ -225,7 +225,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-[420px] rounded-xl overflow-hidden shadow-lg">
               <Image
-                src="/images/gallery/JR_EngelbertForbia_002-scaled.jpg"
+                src="/images/gallery/front.jpg"
                 alt="Bishops House, Hayes"
                 fill
                 className="object-cover"
