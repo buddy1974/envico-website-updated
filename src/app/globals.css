@@ -22,4 +22,18 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  padding-top: 32px; /* accessibility toolbar height */
+}
+
+/* Accessibility toolbar classes */
+.high-contrast {
+  filter: contrast(1.5);
+  background: #000 !important;
+  color: #fff !important;
+}
+.font-large * {
+  font-size: 120% !important;
+}
+.font-larger * {
+  font-size: 140% !important;
 }

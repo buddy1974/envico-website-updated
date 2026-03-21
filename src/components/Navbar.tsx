@@ -13,6 +13,7 @@ const navLinks = [
   { label: "Funding", href: "/funding" },
   { label: "Gallery", href: "/gallery" },
   { label: "Careers", href: "/careers" },
+  { label: "News", href: "/news" },
   { label: "Resources", href: "/resources" },
   { label: "Contact", href: "/contact" },
 ];
@@ -29,7 +30,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-300 ${
+      className={`fixed top-8 left-0 right-0 z-50 bg-white transition-shadow duration-300 ${
         scrolled ? "shadow-lg" : "shadow-sm"
       }`}
     >

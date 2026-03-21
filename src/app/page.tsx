@@ -12,7 +12,8 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
-import ReferralForm from "@/components/ReferralForm";
+import AvailabilityBanner from "@/components/AvailabilityBanner";
+import ReferralSection from "@/components/ReferralSection";
 
 // Top row — cards with images
 const imageServices = [
@@ -100,6 +101,27 @@ const bishopsFeatures = [
   "24/7 staffed support",
 ];
 
+const testimonials = [
+  {
+    quote:
+      "Envico has transformed my brother's life. The staff are incredibly caring and he has flourished since moving to Bishops House. We feel completely at ease knowing he is in such safe hands.",
+    name: "Sarah T.",
+    role: "Sister of resident",
+  },
+  {
+    quote:
+      "From the very first visit we knew Bishops House was right for our son. The Director took time to understand his needs and the transition was handled with such care and professionalism.",
+    name: "Michael & Patricia O.",
+    role: "Parents of resident",
+  },
+  {
+    quote:
+      "The team at Envico go above and beyond every single day. My daughter's confidence has grown enormously and she is now more independent than we ever thought possible.",
+    name: "Janet W.",
+    role: "Mother of resident",
+  },
+];
+
 const galleryImages = [
   "front.jpg",
   "bright, modern living room  dining area with view of garden.jpg",
@@ -116,6 +138,9 @@ export default function Home() {
 
       {/* SECTION 1 — Hero Slider */}
       <HeroSlider />
+
+      {/* Availability Banner */}
+      <AvailabilityBanner />
 
       {/* SECTION 2 — Trust bar */}
       <section className="bg-envico-navy py-5">
@@ -290,7 +315,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 7 — Referral Form */}
+      {/* SECTION 6b — Testimonials */}
+      <section className="py-16 bg-envico-green-light">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+              What Families Say About Us
+            </h2>
+            <p className="text-gray-500 max-w-xl mx-auto text-sm">
+              Feedback from families of residents supported by Envico.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((t) => (
+              <div
+                key={t.name}
+                className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-envico-green hover:shadow-md transition-shadow"
+              >
+                <div className="flex gap-0.5 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-envico-gold text-lg">★</span>
+                  ))}
+                </div>
+                <span className="text-envico-green text-3xl font-serif leading-none mb-2 block">&ldquo;</span>
+                <p className="text-gray-700 text-sm leading-relaxed mb-4 italic">{t.quote}</p>
+                <div>
+                  <p className="font-semibold text-gray-900 text-sm">— {t.name}</p>
+                  <p className="text-gray-400 text-xs">{t.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 7 — Referral Form / AI Chatbot */}
       <section id="referral" className="py-20 bg-envico-navy">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-10">
@@ -298,7 +357,7 @@ export default function Home() {
               Make a Referral or Enquiry
             </h2>
             <p className="text-blue-200">
-              Complete the form below and our team will respond within 24 hours.
+              Complete the form below or chat with our AI assistant. We respond within 24 hours.
               For urgent referrals call{" "}
               <a href="tel:02087979974" className="text-envico-gold font-semibold">
                 020 8797 9974
@@ -306,9 +365,7 @@ export default function Home() {
               .
             </p>
           </div>
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            <ReferralForm />
-          </div>
+          <ReferralSection />
         </div>
       </section>
 

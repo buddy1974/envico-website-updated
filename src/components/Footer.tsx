@@ -8,9 +8,17 @@ const footerLinks = [
   { label: "Bishops House", href: "/bishops-house" },
   { label: "Funding", href: "/funding" },
   { label: "Gallery", href: "/gallery" },
-  { label: "Contact", href: "/contact" },
+  { label: "News", href: "/news" },
   { label: "Careers", href: "/careers" },
   { label: "Resources", href: "/resources" },
+  { label: "Contact", href: "/contact" },
+];
+
+const legalLinks = [
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Cookie Policy", href: "/cookies" },
+  { label: "Complaints", href: "/complaints" },
+  { label: "Easy Read", href: "/easy-read" },
 ];
 
 export default function Footer() {
@@ -46,6 +54,19 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               {footerLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="hover:text-envico-gold transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <h4 className="text-white font-semibold mt-6 mb-3">Legal &amp; Accessibility</h4>
+            <ul className="space-y-2 text-sm">
+              {legalLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -92,24 +113,22 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-700 pt-6 text-center text-xs text-gray-500">
-          © 2026 Envico Supported Living LTD. All rights reserved. | Developed by{" "}
-          <a
-            href="https://maxpromo.digital"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-envico-gold hover:underline"
-          >
-            maxpromo.digital
-          </a>{" "}
-          |{" "}
-          <Link href="/privacy" className="hover:text-gray-300">
-            Privacy Policy
-          </Link>{" "}
-          |{" "}
-          <Link href="/cookies" className="hover:text-gray-300">
-            Cookie Policy
-          </Link>
+        <div className="border-t border-gray-700 pt-6 space-y-2 text-center text-xs text-gray-500">
+          <p>
+            Envico Supported Living LTD is registered with the Care Quality Commission.
+            Registered in England &amp; Wales.
+          </p>
+          <p>
+            © 2026 Envico Supported Living LTD. All rights reserved. | Developed by{" "}
+            <a
+              href="https://maxpromo.digital"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-envico-gold hover:underline"
+            >
+              maxpromo.digital
+            </a>
+          </p>
         </div>
       </div>
     </footer>
