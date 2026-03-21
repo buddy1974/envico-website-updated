@@ -151,9 +151,17 @@ export default function BishopsHousePage() {
               <p className="text-gray-600 leading-relaxed mb-4">
                 Located in a residential area of Hayes, Middlesex, the property
                 offers a homely, non-institutional environment with individual
-                en-suite bedrooms, spacious communal areas and a landscaped
-                garden. Residents are supported 24 hours a day, 7 days a week
-                by a consistent team of trained support workers.
+                en-suite shower rooms, a downstairs bathroom, spacious communal
+                areas, a utility room and a landscaped garden. The property is
+                furnished, decorated and maintained to a remarkably high standard.
+                Residents are supported 24 hours a day, 7 days a week by a
+                consistent team of trained support workers.
+              </p>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Residents and their families are warmly encouraged to bring
+                personal items to make their bedroom feel truly like home.
+                There is onsite parking for up to 5 cars plus ample off-street
+                parking available nearby.
               </p>
               <p className="text-gray-600 leading-relaxed">
                 Each resident has their own individual support plan developed
@@ -170,7 +178,15 @@ export default function BishopsHousePage() {
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li className="flex items-center gap-2">
                     <CheckCircle size={14} className="text-envico-green" />
-                    6 individual bedrooms
+                    6 individual en-suite bedrooms
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle size={14} className="text-envico-green" />
+                    Downstairs bathroom &amp; utility room
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle size={14} className="text-envico-green" />
+                    5-car onsite parking + off-street
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle size={14} className="text-envico-green" />
@@ -183,10 +199,6 @@ export default function BishopsHousePage() {
                   <li className="flex items-center gap-2">
                     <CheckCircle size={14} className="text-envico-green" />
                     Hayes, UB3 — West London
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle size={14} className="text-envico-green" />
-                    Near Heathrow &amp; transport links
                   </li>
                 </ul>
               </div>

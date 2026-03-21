@@ -85,13 +85,15 @@ export default function AboutPage() {
       </section>
 
       {/* Vision statement */}
-      <section className="py-14 bg-envico-green">
+      <section className="py-16 bg-envico-green">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-2xl md:text-3xl font-semibold text-white leading-relaxed italic">
-            &ldquo;People leading independent lives in an environment which is
-            personalised, positive, safe and empowering.&rdquo;
+          <p className="text-xl md:text-2xl font-semibold text-white leading-relaxed italic">
+            &ldquo;Our vision is for people to lead independent lives in an environment
+            which is personalised, positive, safe, and empowering. We enable each
+            individual to have choice and control over their lives, live as independently
+            as they possibly can, and be active and valued members of the community.&rdquo;
           </p>
-          <p className="text-green-200 mt-4 font-medium">— Envico Mission Statement</p>
+          <p className="text-green-200 mt-5 font-medium">— Envico Vision Statement</p>
         </div>
       </section>
 
@@ -128,23 +130,24 @@ export default function AboutPage() {
             Envico is led by experienced health and social care professionals
             committed to the highest standards of person-centred care.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Director */}
             <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
               <div className="w-16 h-16 bg-envico-blue rounded-full flex items-center justify-center mb-5">
                 <span className="text-white text-2xl font-bold">D</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-1">Director</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-1">Director / Registered Manager</h3>
               <p className="text-envico-green font-medium text-sm mb-4">
                 Advanced Social Worker · AMHP · Best Interests Assessor
               </p>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Our Director brings extensive experience in statutory and
-                independent social care, holding qualifications as an Approved
-                Mental Health Professional (AMHP) and Best Interests Assessor
-                (BIA). With deep expertise in the Mental Capacity Act, Care Act
-                and safeguarding, they provide strategic and clinical leadership
-                across all Envico services.
+                Our Director is an Advanced Social Worker with extensive experience
+                across adult social care settings, including specialist expertise in
+                dual diagnosis — the coexistence of severe and enduring mental disorder
+                alongside drug and/or alcohol dependency. They hold statutory
+                qualifications as an Approved Mental Health Professional (AMHP) and
+                Best Interests Assessor (BIA), and are also a Practice Educator and
+                Motivational Interviewer.
               </p>
               <div className="mt-4 space-y-1">
                 <div className="flex items-center gap-2 text-xs text-gray-500">
@@ -157,7 +160,15 @@ export default function AboutPage() {
                 </div>
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <CheckCircle size={13} className="text-envico-green" />
-                  Advanced Social Work Practitioner
+                  Practice Educator
+                </div>
+                <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <CheckCircle size={13} className="text-envico-green" />
+                  Motivational Interviewer
+                </div>
+                <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <CheckCircle size={13} className="text-envico-green" />
+                  Dual diagnosis specialist
                 </div>
               </div>
             </div>
@@ -171,27 +182,61 @@ export default function AboutPage() {
                 Deputy Manager
               </h3>
               <p className="text-envico-green font-medium text-sm mb-4">
-                Registered Manager · NVQ Level 5 Health &amp; Social Care
+                Supported Living Specialist · Mental Health &amp; Learning Disabilities
               </p>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Our Deputy Manager oversees day-to-day operations at Bishops
-                House and our domiciliary care services, ensuring consistent,
-                high-quality support delivery. With significant frontline
-                experience and management qualifications, they lead staff
-                development and ensure CQC compliance across all services.
+                Our Deputy Manager brings years of experience in supported living
+                accommodation, specialising in mental disorders and learning
+                disabilities. They oversee day-to-day operations and staff
+                development, ensuring CQC-compliant, person-centred care is
+                delivered consistently across all services.
               </p>
               <div className="mt-4 space-y-1">
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <CheckCircle size={13} className="text-envico-green" />
-                  NVQ Level 5 in Health &amp; Social Care Management
+                  Specialist in mental disorders &amp; learning disabilities
                 </div>
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <CheckCircle size={13} className="text-envico-green" />
-                  Oliver McGowan Trained
+                  Years of supported living management experience
                 </div>
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <CheckCircle size={13} className="text-envico-green" />
-                  Safeguarding Adults Lead
+                  CQC compliance lead
+                </div>
+              </div>
+            </div>
+
+            {/* Team Leader & Support Workers */}
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <div className="w-16 h-16 bg-envico-navy rounded-full flex items-center justify-center mb-5">
+                <span className="text-white text-2xl font-bold">T</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-1">
+                Team Leader &amp; Support Workers
+              </h3>
+              <p className="text-envico-green font-medium text-sm mb-4">
+                Experienced · Learning Disabilities · Behaviour That Challenges
+              </p>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Our team leaders and support workers have years of frontline
+                experience supporting people with learning disabilities, including
+                individuals who present with behaviour that challenges. All staff
+                receive comprehensive induction training and ongoing professional
+                development.
+              </p>
+              <div className="mt-4 space-y-1">
+                <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <CheckCircle size={13} className="text-envico-green" />
+                  Experienced with behaviour that challenges
+                </div>
+                <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <CheckCircle size={13} className="text-envico-green" />
+                  Oliver McGowan mandatory training
+                </div>
+                <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <CheckCircle size={13} className="text-envico-green" />
+                  Enhanced DBS checked — all staff
                 </div>
               </div>
             </div>
