@@ -56,12 +56,12 @@ const gallerySections = [
     ],
   },
   {
-    heading: "Modern En-Suite Facilities",
-    cta: "Private shower rooms in every bedroom",
+    heading: "Bright Hallways & Common Spaces",
+    cta: "Light, accessible and welcoming throughout",
     photos: [
-      { file: "JR_EngelbertForbia_040-scaled.jpg", alt: "En-suite bathroom" },
-      { file: "JR_EngelbertForbia_042-scaled.jpg", alt: "Modern bathroom" },
-      { file: "JR_EngelbertForbia_043-scaled.jpg", alt: "En-suite facilities" },
+      { file: "JR_EngelbertForbia_040-scaled.jpg", alt: "Hallway and staircase" },
+      { file: "JR_EngelbertForbia_042-scaled.jpg", alt: "Common corridor" },
+      { file: "JR_EngelbertForbia_043-scaled.jpg", alt: "Internal hallway" },
     ],
   },
   {

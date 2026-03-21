@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Brain, Infinity, Zap, Activity, Heart, Home, CheckCircle } from "lucide-react";
+import { Zap, Activity, Heart, Users, CheckCircle } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -11,126 +11,111 @@ export const metadata: Metadata = {
     "Envico provides specialist supported living and domiciliary care for adults with learning disabilities, autism, ADHD, acquired brain injury, mental health needs and more.",
 };
 
-const services = [
+const imageCards = [
   {
-    id: "learning-disabilities",
-    Icon: Brain,
-    color: "bg-envico-green",
     title: "Learning Disabilities",
     image: "/images/learning-disability.png",
-    tagline: "Tailored support promoting independence and inclusion",
-    description:
-      "We provide person-centred supported living and community-based support for adults with mild to profound learning disabilities. Our skilled team works closely with individuals, families and local authorities to develop bespoke support plans that promote independence, choice and quality of life.",
-    provides: [
-      "Supported living at Bishops House, Hayes",
-      "Personal care and daily living support",
-      "Community access and social activities",
-      "Health appointments and medication management",
-      "Life skills development",
-      "Employment and volunteering support",
+    color: "bg-envico-green",
+    bullets: [
+      "Person-centred support plans tailored to each individual",
+      "Community access, social activities and life skills",
+      "24/7 staffed support at Bishops House, Hayes",
     ],
-    whoFor: "Adults aged 18+ with a diagnosed learning disability",
-    howToAccess: "Local authority referral, NHS Continuing Healthcare or self-funded",
+    href: "/#referral",
   },
   {
-    id: "autism",
-    Icon: Infinity,
-    color: "bg-envico-blue",
     title: "Autism Support",
     image: "/images/autism-suppport.png",
-    tagline: "Structured, sensory-aware environments and consistent routines",
-    description:
-      "Our autism-specialist staff create calm, predictable environments tailored to the sensory and communication needs of each autistic adult. We follow low-arousal approaches and work with individuals to understand their preferences and reduce anxiety.",
-    provides: [
-      "Sensory-aware living environments",
-      "Consistent routines and visual supports",
-      "Specialist autism training for all staff",
-      "Community integration at the individual's pace",
-      "Communication support (AAC, PECS, Makaton)",
-      "Coordination with speech and language therapy",
+    color: "bg-envico-blue",
+    bullets: [
+      "Sensory-aware, low-arousal environments",
+      "Consistent routines and visual communication support",
+      "Staff trained in autism-specific approaches",
     ],
-    whoFor: "Autistic adults, including those with co-occurring learning disabilities or ADHD",
-    howToAccess: "Local authority referral, NHS CHC or self-funded",
+    href: "/#referral",
   },
   {
-    id: "adhd",
-    Icon: Zap,
-    color: "bg-envico-gold",
-    title: "ADHD Support",
-    image: null,
-    tagline: "Focused strategies to manage daily living and build life skills",
-    description:
-      "We support adults living with ADHD to develop strategies for managing daily life, building structure and achieving their personal goals. Our staff are trained to understand the challenges of ADHD and provide consistent, patient and structured support.",
-    provides: [
-      "Structured daily routines and prompting",
-      "Medication management support",
-      "Goal-setting and motivation coaching",
-      "Financial management support",
-      "Employment and education support",
-      "Liaison with ADHD clinics and psychiatry",
-    ],
-    whoFor: "Adults with a diagnosed ADHD, with or without co-occurring conditions",
-    howToAccess: "Local authority referral or self-funded",
-  },
-  {
-    id: "brain-injury",
-    Icon: Activity,
-    color: "bg-red-600",
-    title: "Acquired Brain Injury",
-    image: null,
-    tagline: "Rehabilitation-focused support for recovery and independence",
-    description:
-      "Acquired brain injury (ABI) can result from stroke, trauma or illness. Our team provides structured, rehabilitation-focused support designed to maximise recovery, restore independence and improve quality of life.",
-    provides: [
-      "Rehabilitation goal planning in coordination with NHS teams",
-      "Cognitive and memory support strategies",
-      "Personal care and daily living assistance",
-      "Physiotherapy and occupational therapy liaison",
-      "Community reintegration programmes",
-      "Family and carer support",
-    ],
-    whoFor: "Adults who have experienced a stroke, traumatic brain injury or other ABI",
-    howToAccess: "NHS Continuing Healthcare, local authority funding or self-funded",
-  },
-  {
-    id: "mental-health",
-    Icon: Heart,
-    color: "bg-purple-600",
-    title: "Mental Health",
-    image: null,
-    tagline: "Recovery-oriented support for complex mental health needs",
-    description:
-      "We deliver compassionate, recovery-oriented support for adults with complex mental health needs, including those transitioning from inpatient care or acute services. Our approach centres on psychological safety, therapeutic relationships and building resilience.",
-    provides: [
-      "Recovery-focused support planning",
-      "Crisis prevention and relapse planning",
-      "Medication compliance and monitoring",
-      "Liaison with community mental health teams",
-      "Peer support and social inclusion",
-      "Employment and education support",
-    ],
-    whoFor: "Adults with serious mental illness, including those with dual diagnosis",
-    howToAccess: "Community mental health team referral or local authority",
-  },
-  {
-    id: "domiciliary-care",
-    Icon: Home,
-    color: "bg-envico-green",
     title: "Domiciliary Care",
     image: "/images/domiciliary-care.png",
-    tagline: "Flexible in-home care across Greater London",
-    description:
-      "Our domiciliary care service delivers flexible, responsive care visits to individuals living in their own homes across Greater London. Whether you need support for a few hours a week or multiple daily visits, our trained carers provide consistent, dignified care.",
-    provides: [
-      "Personal care (washing, dressing, toileting)",
-      "Medication administration",
-      "Meal preparation and nutrition support",
-      "Household tasks and domestic support",
-      "Community access and social support",
-      "Night sits and complex care",
+    color: "bg-envico-navy",
+    bullets: [
+      "Flexible care visits in the individual's own home",
+      "Personal care, medication, meals and domestic support",
+      "Serving Greater London — consistent, familiar carers",
     ],
-    whoFor: "Adults of all ages requiring support to remain in their own home",
-    howToAccess: "Local authority direct payment, NHS CHC or self-funded",
+    href: "/#referral",
+  },
+  {
+    title: "Supported Living",
+    image: "/images/supported-living.png",
+    color: "bg-purple-700",
+    bullets: [
+      "6 en-suite bedrooms at Bishops House, Hayes",
+      "Real home environment — not a residential care setting",
+      "Individual tenancy with bespoke support package",
+    ],
+    href: "/bishops-house",
+  },
+];
+
+const gradientBoxes = [
+  {
+    Icon: Zap,
+    title: "ADHD Support",
+    gradient: "from-purple-600 to-purple-900",
+    bullets: [
+      "Structured daily routines and prompting strategies",
+      "Medication management and appointment support",
+      "Goal-setting, motivation coaching and employment support",
+    ],
+  },
+  {
+    Icon: Activity,
+    title: "Acquired Brain Injury Care",
+    gradient: "from-teal-600 to-teal-900",
+    bullets: [
+      "Rehabilitation goal planning with NHS teams",
+      "Cognitive, memory and daily living support",
+      "Community reintegration and family liaison",
+    ],
+  },
+  {
+    Icon: Heart,
+    title: "Mental Health Support",
+    gradient: "from-green-700 to-green-900",
+    bullets: [
+      "Recovery-oriented, person-centred support plans",
+      "Crisis prevention, relapse planning and medication support",
+      "Peer support, social inclusion and employment pathways",
+    ],
+  },
+  {
+    Icon: Users,
+    title: "Outreach & Staffing Services",
+    gradient: "from-envico-navy to-gray-900",
+    bullets: [
+      "Community outreach support for individuals at home",
+      "Specialist staffing solutions for care providers",
+      "Experienced, DBS-checked and Oliver McGowan trained staff",
+    ],
+  },
+];
+
+const steps = [
+  {
+    number: "01",
+    title: "Referral & Assessment",
+    desc: "Submit a referral via our online form, by phone or through a local authority. We carry out an initial assessment to understand the individual's needs, goals and circumstances.",
+  },
+  {
+    number: "02",
+    title: "Care Plan Development",
+    desc: "Working alongside the individual, their family, social workers and other professionals, we develop a bespoke support plan that puts their wishes and aspirations at the centre.",
+  },
+  {
+    number: "03",
+    title: "Ongoing Support & Review",
+    desc: "Support begins and is regularly reviewed. We adapt plans as needs change, maintaining open communication with families and commissioners throughout.",
   },
 ];
 
@@ -140,112 +125,174 @@ export default function ServicesPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-20 bg-envico-blue text-white">
-        <div className="max-w-5xl mx-auto px-6 py-20 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-5">
+      <section className="pt-20 bg-gradient-to-br from-envico-navy to-envico-dark text-white">
+        <div className="max-w-5xl mx-auto px-6 py-24 text-center">
+          <span className="text-xs font-bold uppercase tracking-widest text-envico-gold mb-4 inline-block">
+            What We Do
+          </span>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             Our Care Services
           </h1>
           <p className="text-lg text-blue-100 max-w-2xl mx-auto">
-            Specialist, person-centred care and support for adults with a range
-            of needs — delivered by trained, compassionate professionals in
-            Hayes and Greater London.
+            Specialist, person-centred care and support for adults with learning
+            disabilities, autism, mental health needs and complex conditions —
+            delivered by trained, compassionate professionals.
           </p>
         </div>
       </section>
 
-      {/* Services */}
+      {/* Section 1 — Specialist Care Services: 2x2 image cards */}
       <section className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-6 space-y-20">
-          {services.map(({ id, Icon, color, title, image, tagline, description, provides, whoFor, howToAccess }, idx) => (
-            <div
-              key={id}
-              id={id}
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                idx % 2 === 1 ? "lg:flex-row-reverse" : ""
-              }`}
-            >
-              {/* Image / icon block */}
-              <div className={idx % 2 === 1 ? "lg:order-2" : ""}>
-                {image ? (
-                  <div className="relative h-72 rounded-xl overflow-hidden shadow-lg">
-                    <Image
-                      src={image}
-                      alt={title}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className={`absolute top-4 left-4 w-12 h-12 ${color} rounded-xl flex items-center justify-center shadow-md`}>
-                      <Icon size={22} className="text-white" />
-                    </div>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              Specialist Care Services
+            </h2>
+            <p className="text-gray-500 max-w-xl mx-auto">
+              Our core services — each delivered with a regulated, CQC-compliant
+              approach centred on the individual.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {imageCards.map(({ title, image, color, bullets, href }) => (
+              <div
+                key={title}
+                className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-gray-100 flex flex-col"
+              >
+                {/* Image top */}
+                <div className="relative h-56 w-full">
+                  <Image
+                    src={image}
+                    alt={title}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/20" />
+                  <div className={`absolute top-4 left-4 ${color} text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full`}>
+                    {title}
                   </div>
-                ) : (
-                  <div className={`h-72 rounded-xl ${color} flex items-center justify-center shadow-lg`}>
-                    <Icon size={80} className="text-white/30" />
-                  </div>
-                )}
-              </div>
-
-              {/* Content */}
-              <div className={idx % 2 === 1 ? "lg:order-1" : ""}>
-                <div className={`inline-flex items-center gap-2 ${color} text-white text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4`}>
-                  <Icon size={13} />
-                  {title}
-                </div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">{title}</h2>
-                <p className="text-envico-green font-medium text-sm mb-4">{tagline}</p>
-                <p className="text-gray-600 text-sm leading-relaxed mb-5">{description}</p>
-
-                <h4 className="font-semibold text-gray-800 mb-3 text-sm">What we provide:</h4>
-                <ul className="space-y-1.5 mb-5">
-                  {provides.map((p) => (
-                    <li key={p} className="flex items-start gap-2 text-sm text-gray-600">
-                      <CheckCircle size={14} className="text-envico-green flex-shrink-0 mt-0.5" />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="bg-gray-50 rounded-lg p-4 text-sm space-y-2 mb-5">
-                  <p><span className="font-semibold text-gray-800">Who it&apos;s for:</span> <span className="text-gray-600">{whoFor}</span></p>
-                  <p><span className="font-semibold text-gray-800">How to access:</span> <span className="text-gray-600">{howToAccess}</span></p>
                 </div>
 
-                <Link
-                  href="/#referral"
-                  className="inline-block bg-envico-green text-white text-sm font-semibold px-5 py-2.5 rounded-md hover:bg-envico-green-dark transition-colors"
-                >
-                  Make a Referral
-                </Link>
+                {/* Colored bottom */}
+                <div className={`${color} flex-1 p-6 text-white`}>
+                  <h3 className="text-xl font-bold mb-4">{title}</h3>
+                  <ul className="space-y-2 mb-5">
+                    {bullets.map((b) => (
+                      <li key={b} className="flex items-start gap-2 text-sm text-white/90">
+                        <CheckCircle size={14} className="flex-shrink-0 mt-0.5 text-white/70" />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href={href}
+                    className="inline-block bg-white/20 hover:bg-white/30 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors border border-white/30"
+                  >
+                    Make a Referral →
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-envico-green-light">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Not Sure Which Service Is Right?
+      {/* Section 2 — Additional Support Services: 2x2 gradient boxes */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              Additional Support Services
+            </h2>
+            <p className="text-gray-500 max-w-xl mx-auto">
+              Specialist support for a range of complex needs, delivered by
+              experienced and trained professionals.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {gradientBoxes.map(({ Icon, title, gradient, bullets }) => (
+              <div
+                key={title}
+                className={`bg-gradient-to-br ${gradient} rounded-2xl p-8 text-white shadow-md hover:shadow-xl transition-shadow`}
+              >
+                <div className="w-14 h-14 bg-white/15 rounded-2xl flex items-center justify-center mb-5">
+                  <Icon size={28} className="text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-5">{title}</h3>
+                <ul className="space-y-3 mb-6">
+                  {bullets.map((b) => (
+                    <li key={b} className="flex items-start gap-3 text-sm text-white/90">
+                      <CheckCircle size={15} className="flex-shrink-0 mt-0.5 text-white/60" />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/#referral"
+                  className="inline-block bg-white/20 hover:bg-white/30 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors border border-white/25"
+                >
+                  Make a Referral →
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3 — How We Work: 3-step process */}
+      <section className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              How We Work
+            </h2>
+            <p className="text-gray-500 max-w-xl mx-auto">
+              From first contact to ongoing support — a simple, transparent
+              process designed around the individual.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {steps.map(({ number, title, desc }) => (
+              <div key={number} className="relative">
+                <div className="text-6xl font-black text-gray-100 mb-2 leading-none">{number}</div>
+                <div className="absolute top-4 left-0 w-10 h-10 bg-envico-navy rounded-xl flex items-center justify-center">
+                  <span className="text-envico-gold font-bold text-sm">{number}</span>
+                </div>
+                <div className="mt-2 pl-2">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4 — CTA banner */}
+      <section className="py-16 bg-envico-green text-white text-center">
+        <div className="max-w-2xl mx-auto px-6">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            Ready to Make a Referral?
           </h2>
-          <p className="text-gray-600 mb-8">
-            Our team is happy to talk through your situation and help identify
-            the most appropriate support. Contact us for a no-obligation
-            conversation.
+          <p className="text-green-100 mb-8 text-lg">
+            Our team responds within 24 hours. For urgent placements call us directly.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/#referral"
-              className="bg-envico-green text-white font-semibold px-8 py-4 rounded-md hover:bg-envico-green-dark transition-colors"
+              className="bg-white text-envico-green font-bold px-8 py-4 rounded-md hover:bg-green-50 transition-colors"
             >
               Make a Referral
             </Link>
-            <Link
-              href="/contact"
-              className="border-2 border-envico-green text-envico-green font-semibold px-8 py-4 rounded-md hover:bg-envico-green hover:text-white transition-colors"
+            <a
+              href="tel:02087979974"
+              className="border-2 border-white text-white font-semibold px-8 py-4 rounded-md hover:bg-white hover:text-envico-green transition-colors"
             >
-              Contact Us
-            </Link>
+              Call 020 8797 9974
+            </a>
           </div>
         </div>
       </section>

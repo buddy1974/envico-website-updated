@@ -121,7 +121,7 @@ export default function CareerApplicationForm() {
         }
       });
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CAREOS_API}/api/careers/apply`,
+        `${process.env.NEXT_PUBLIC_CAREOS_API}/api/recruitment`,
         { method: "POST", body: formPayload }
       );
       if (!res.ok) throw new Error();
