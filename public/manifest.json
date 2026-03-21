@@ -1,0 +1,13 @@
+{
+  "name": "Envico Supported Living",
+  "short_name": "Envico",
+  "description": "CQC-registered supported living in Hayes, Middlesex",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a2a5e",
+  "icons": [
+    { "src": "/images/logo.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/images/logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

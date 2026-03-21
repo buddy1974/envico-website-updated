@@ -19,6 +19,7 @@ const legalLinks = [
   { label: "Cookie Policy", href: "/cookies" },
   { label: "Complaints", href: "/complaints" },
   { label: "Easy Read", href: "/easy-read" },
+  { label: "Accessibility", href: "/accessibility" },
 ];
 
 export default function Footer() {

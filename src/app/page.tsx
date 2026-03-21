@@ -14,6 +14,8 @@ import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
 import AvailabilityBanner from "@/components/AvailabilityBanner";
 import ReferralSection from "@/components/ReferralSection";
+import ReviewsSection from "@/components/ReviewsSection";
+import CQCRating from "@/components/CQCRating";
 
 // Top row — cards with images
 const imageServices = [
@@ -145,13 +147,14 @@ export default function Home() {
       {/* SECTION 2 — Trust bar */}
       <section className="bg-envico-navy py-5">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {trustItems.map((item) => (
               <div key={item.label} className="flex items-center gap-2.5">
                 <CheckCircle size={16} className="text-envico-blue flex-shrink-0" />
                 <span className="text-xs font-medium text-white">{item.label}</span>
               </div>
             ))}
+            <CQCRating />
           </div>
         </div>
       </section>
@@ -348,6 +351,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* SECTION 6c — Verified Reviews */}
+      <ReviewsSection />
 
       {/* SECTION 7 — Referral Form / AI Chatbot */}
       <section id="referral" className="py-20 bg-envico-navy">
