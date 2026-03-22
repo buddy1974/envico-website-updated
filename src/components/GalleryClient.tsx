@@ -50,15 +50,46 @@ const allPhotos = orderedFiles.map((file) => ({
   src: `/images/gallery/${file}`,
 }));
 
+// Filter category definitions
+const exteriorFiles = new Set(["front.jpg", "back view with garden,.jpg"]);
+const gardenFiles = new Set(["back view with garden,.jpg"]);
+
+const bedroomKeywords = [
+  "Bedroom", "Room", "Private", "Cozy", "Modern Residential",
+  "Clean and Spacious", "Modern Care", "Comfortable", "Modern Private", "Well Maintained",
+];
+
+const communalKeywords = [
+  "living", "Corridor", "Hallway", "Kitchen", "dining", "Office", "bathroom",
+];
+
+function getCategory(file: string): string[] {
+  const cats: string[] = [];
+  if (exteriorFiles.has(file)) cats.push("Exterior");
+  if (gardenFiles.has(file)) cats.push("Garden");
+  if (bedroomKeywords.some((kw) => file.includes(kw))) cats.push("Bedrooms");
+  if (communalKeywords.some((kw) => file.toLowerCase().includes(kw.toLowerCase()))) cats.push("Communal");
+  return cats;
+}
+
+const filterTabs = ["All", "Exterior", "Bedrooms", "Communal", "Garden"] as const;
+type FilterTab = (typeof filterTabs)[number];
+
 export default function GalleryClient() {
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [activeFilter, setActiveFilter] = useState<FilterTab>("All");
+
+  const filteredPhotos =
+    activeFilter === "All"
+      ? allPhotos
+      : allPhotos.filter((p) => getCategory(p.file).includes(activeFilter));
 
   const openLightbox = (i: number) => setLightbox(i);
   const closeLightbox = () => setLightbox(null);
   const prev = () =>
-    setLightbox((p) => (p !== null ? (p - 1 + allPhotos.length) % allPhotos.length : 0));
+    setLightbox((p) => (p !== null ? (p - 1 + filteredPhotos.length) % filteredPhotos.length : 0));
   const next = () =>
-    setLightbox((p) => (p !== null ? (p + 1) % allPhotos.length : 0));
+    setLightbox((p) => (p !== null ? (p + 1) % filteredPhotos.length : 0));
 
   return (
     <>
@@ -73,11 +104,28 @@ export default function GalleryClient() {
         </div>
       </section>
 
-      {/* Masonry-style grid */}
+      {/* Filter tabs + Masonry-style grid */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
+          {/* Filter tabs */}
+          <div className="flex flex-wrap gap-2 mb-8 justify-center">
+            {filterTabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveFilter(tab)}
+                className={`px-5 py-2 text-sm font-medium rounded-full transition-colors ${
+                  activeFilter === tab
+                    ? "border-b-2 border-[#3a8a3a] text-[#3a8a3a] bg-white shadow-sm"
+                    : "text-gray-500 hover:text-gray-700 bg-white shadow-sm"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
           <div className="columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
-            {allPhotos.map((photo, i) => (
+            {filteredPhotos.map((photo, i) => (
               <div
                 key={photo.file}
                 className="break-inside-avoid cursor-pointer group rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
@@ -101,8 +149,24 @@ export default function GalleryClient() {
             ))}
           </div>
           <p className="text-center text-gray-500 text-sm mt-8">
-            {allPhotos.length} photos — Click any image to enlarge
+            {filteredPhotos.length} photo{filteredPhotos.length !== 1 ? "s" : ""} — Click any image to enlarge
           </p>
+
+          {/* CTA */}
+          <div className="text-center mt-12 py-10 bg-envico-green-light rounded-2xl">
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Want to see Bishops House in person?</h3>
+            <p className="text-gray-600 text-sm mb-5 max-w-md mx-auto">
+              We welcome visits from prospective residents, families and commissioners. Contact us to arrange a tour.
+            </p>
+            <div className="flex gap-3 justify-center">
+              <a href="tel:02087979974" className="bg-envico-green text-white font-semibold px-6 py-3 rounded-md text-sm hover:bg-envico-green-dark transition-colors">
+                Call to Book a Visit
+              </a>
+              <a href="/contact" className="border-2 border-envico-navy text-envico-navy font-semibold px-6 py-3 rounded-md text-sm hover:bg-envico-navy hover:text-white transition-colors">
+                Contact Us
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -145,20 +209,20 @@ export default function GalleryClient() {
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={allPhotos[lightbox].src}
-              alt={allPhotos[lightbox].caption}
+              src={filteredPhotos[lightbox].src}
+              alt={filteredPhotos[lightbox].caption}
               width={1200}
               height={800}
               className="w-full h-auto max-h-[75vh] object-contain rounded-lg"
             />
             <p className="text-white text-center text-sm mt-3 font-medium">
-              {allPhotos[lightbox].caption}
+              {filteredPhotos[lightbox].caption}
             </p>
             <p className="text-gray-300 text-center text-xs mt-1 max-w-2xl mx-auto">
-              {allPhotos[lightbox].description}
+              {filteredPhotos[lightbox].description}
             </p>
             <p className="text-gray-500 text-center text-xs mt-2">
-              {lightbox + 1} / {allPhotos.length}
+              {lightbox + 1} / {filteredPhotos.length}
             </p>
           </div>
         </div>

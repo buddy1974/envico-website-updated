@@ -1,192 +1,190 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Users, UserCog, LayoutDashboard, ArrowRight, Shield } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { Eye, EyeOff, Shield, AlertCircle } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Portal Login | Envico Supported Living",
-  description:
-    "Access the Envico portal. Family portal for care updates, staff portal for rotas and training, manager portal for full system overview.",
-};
+export default function PortalLoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [familyMessage, setFamilyMessage] = useState(false);
+  const [forgotToast, setForgotToast] = useState(false);
 
-const portals = [
-  {
-    Icon: Users,
-    title: "Family Portal",
-    tagline: "Stay connected with your loved one's care",
-    description:
-      "View care updates, daily notes, health records and messages from the care team — all in one secure place.",
-    features: [
-      "Daily care notes and updates",
-      "Appointments and health records",
-      "Direct messaging with the team",
-      "Document sharing",
-    ],
-    buttonLabel: "Family Login",
-    href: "/portal/family",
-    external: false,
-    note: null,
-    color: "bg-envico-green",
-    borderColor: "border-envico-green",
-    textColor: "text-envico-green",
-  },
-  {
-    Icon: UserCog,
-    title: "Staff Portal",
-    tagline: "Your rota, training and care documentation",
-    description:
-      "Access your work schedule, complete e-learning modules, view care plans and submit daily notes on your shift.",
-    features: [
-      "Rota and shift management",
-      "E-learning and training records",
-      "Care plan access",
-      "Daily notes and handover",
-    ],
-    buttonLabel: "Staff Login",
-    href: "https://envico-dashboard.vercel.app",
-    external: true,
-    note: "Your access level is determined by your account role",
-    color: "bg-envico-blue",
-    borderColor: "border-envico-blue",
-    textColor: "text-envico-blue",
-  },
-  {
-    Icon: LayoutDashboard,
-    title: "Manager Portal",
-    tagline: "Full operational and compliance overview",
-    description:
-      "Complete oversight of all services — staffing, compliance, incident reports, audits and CQC-ready documentation.",
-    features: [
-      "Staffing and compliance dashboard",
-      "Incident and accident reporting",
-      "Audit and inspection tools",
-      "CQC evidence management",
-    ],
-    buttonLabel: "Manager Login",
-    href: "https://envico-dashboard.vercel.app",
-    external: true,
-    note: "Your access level is determined by your account role",
-    color: "bg-envico-dark",
-    borderColor: "border-gray-800",
-    textColor: "text-gray-800",
-  },
-];
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setFamilyMessage(false);
+    setLoading(true);
 
-export default function PortalPage() {
+    try {
+      const res = await fetch(
+        "https://envico-backend.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(
+          (data as { message?: string }).message ||
+            "Invalid email or password. Please try again."
+        );
+        return;
+      }
+
+      const data = await res.json() as { token?: string; role?: string };
+      const role = data.role ?? decodeRole(data.token ?? "");
+
+      if (role === "FAMILY") {
+        setFamilyMessage(true);
+        return;
+      }
+
+      window.location.href = "https://envico-dashboard.vercel.app";
+    } catch {
+      setError("Connection error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function decodeRole(token: string): string {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return (payload as { role?: string }).role ?? "";
+    } catch {
+      return "";
+    }
+  }
+
+  function handleForgot() {
+    setForgotToast(true);
+    setTimeout(() => setForgotToast(false), 4000);
+  }
+
   return (
-    <>
-      <Navbar />
-
-      {/* Hero */}
-      <section className="pt-20 bg-envico-dark text-white">
-        <div className="max-w-5xl mx-auto px-6 py-20 text-center">
-          <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Shield size={28} className="text-envico-gold" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-5">
-            Envico Portal Login
-          </h1>
-          <p className="text-gray-300 max-w-xl mx-auto text-lg">
-            Secure access for families, care staff and managers. Select your
-            portal below to continue.
-          </p>
+    <div className="min-h-screen bg-[#f8f9fa] flex flex-col items-center justify-center px-4 py-16">
+      {/* Card */}
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+        {/* Top bar */}
+        <div className="bg-[#0d1b2a] px-8 py-6 text-center">
+          <Image
+            src="/images/logo.png"
+            alt="Envico Supported Living"
+            width={160}
+            height={54}
+            className="h-12 w-auto object-contain mx-auto brightness-0 invert"
+          />
         </div>
-      </section>
 
-      {/* Portal cards */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {portals.map(({ Icon, title, tagline, description, features, buttonLabel, href, external, note, color, borderColor, textColor }) => (
-              <div
-                key={title}
-                className={`bg-white rounded-2xl shadow-md border-t-4 ${borderColor} overflow-hidden hover:shadow-xl transition-shadow flex flex-col`}
-              >
-                <div className="p-6 flex-1">
-                  <div className={`w-12 h-12 ${color} rounded-xl flex items-center justify-center mb-5`}>
-                    <Icon size={22} className="text-white" />
-                  </div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-1">
-                    {title}
-                  </h2>
-                  <p className={`text-sm font-medium ${textColor} mb-3`}>
-                    {tagline}
-                  </p>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-5">
-                    {description}
-                  </p>
-                  <ul className="space-y-2">
-                    {features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-gray-600">
-                        <ArrowRight size={13} className={`${textColor} mt-0.5 flex-shrink-0`} />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  {note && (
-                    <p className="text-xs text-gray-400 mt-4 italic">{note}</p>
-                  )}
-                </div>
-                <div className="p-6 pt-0">
-                  <a
-                    href={href}
-                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className={`block w-full text-center ${color} text-white font-semibold py-3 rounded-xl hover:opacity-90 transition-opacity`}
-                  >
-                    {buttonLabel} →
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Security notice */}
-      <section className="py-10 bg-white">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <div className="flex items-center justify-center gap-2 mb-3">
+        <div className="px-8 py-8">
+          <div className="flex items-center gap-2 mb-6">
             <Shield size={18} className="text-envico-green" />
-            <span className="font-semibold text-gray-800">
-              Secure &amp; Encrypted
-            </span>
+            <h1 className="text-lg font-bold text-gray-900">Portal Sign In</h1>
           </div>
-          <p className="text-sm text-gray-500">
-            All portal access is protected by SSL encryption and two-factor
-            authentication. If you are having trouble logging in, contact your
-            manager or call{" "}
-            <a
-              href="tel:02087979974"
-              className="text-envico-green font-medium hover:underline"
+
+          {familyMessage && (
+            <div className="mb-5 bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-800">
+              <p className="font-semibold mb-1">Family portal coming soon</p>
+              <p>
+                The family portal is currently under development. Please contact
+                the care team directly at{" "}
+                <a href="tel:02087979974" className="font-medium hover:underline">
+                  020 8797 9974
+                </a>{" "}
+                for updates about your loved one.
+              </p>
+            </div>
+          )}
+
+          {error && (
+            <div className="mb-5 bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3 text-sm text-red-700">
+              <AlertCircle size={16} className="flex-shrink-0 mt-0.5" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Email address
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="email"
+                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-envico-green focus:border-transparent"
+                placeholder="you@envicosl.co.uk"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  autoComplete="current-password"
+                  className="w-full border border-gray-200 rounded-lg px-4 py-3 pr-11 text-sm focus:outline-none focus:ring-2 focus:ring-envico-green focus:border-transparent"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  aria-label="Toggle password visibility"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-envico-green text-white font-semibold py-3 rounded-lg hover:bg-envico-green-dark transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              020 8797 9974
-            </a>
-            .
-          </p>
-        </div>
-      </section>
+              {loading ? "Signing in…" : "Sign In"}
+            </button>
+          </form>
 
-      {/* Not registered */}
-      <section className="py-12 bg-envico-green-light">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h3 className="font-bold text-gray-900 mb-2">
-            Don&apos;t have portal access yet?
-          </h3>
-          <p className="text-gray-600 text-sm mb-5">
-            Family members can request portal access by contacting the care
-            team. Staff access is set up by your manager on joining.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block bg-envico-green text-white font-semibold px-6 py-3 rounded-md hover:bg-envico-green-dark transition-colors text-sm"
-          >
-            Contact Us to Request Access
-          </Link>
-        </div>
-      </section>
+          <div className="mt-4 text-center">
+            <button
+              onClick={handleForgot}
+              className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              Forgot password?
+            </button>
+          </div>
 
-      <Footer />
-    </>
+          {forgotToast && (
+            <div className="mt-3 bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-sm text-yellow-800 text-center">
+              Please contact your manager to reset your password.
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Below card */}
+      <p className="mt-6 text-sm text-gray-500">
+        Are you a professional making a referral?{" "}
+        <Link href="/#referral" className="text-envico-green font-medium hover:underline">
+          Submit a referral →
+        </Link>
+      </p>
+    </div>
   );
 }

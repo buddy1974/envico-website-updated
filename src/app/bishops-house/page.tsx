@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CheckCircle, MapPin, Phone, BedDouble, Car, TreePine, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AvailabilityBanner from "@/components/AvailabilityBanner";
 import galleryDescs from "@/data/gallery-descriptions.json";
 
 const gd = galleryDescs as Record<string, { title: string; description: string }>;
@@ -143,6 +144,8 @@ export default function BishopsHousePage() {
           </div>
         </div>
       </section>
+
+      <AvailabilityBanner />
 
       {/* Overview */}
       <section className="py-16 bg-white">

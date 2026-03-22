@@ -81,10 +81,10 @@ export default function ContactPage() {
                   <div className="flex items-center gap-3 text-sm">
                     <Mail size={16} className="text-envico-green flex-shrink-0" />
                     <a
-                      href="mailto:info@envicosl.co.uk"
+                      href="mailto:ops@envicosl.co.uk"
                       className="text-envico-green hover:underline"
                     >
-                      info@envicosl.co.uk
+                      ops@envicosl.co.uk
                     </a>
                   </div>
                 </div>

@@ -1,17 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Brain,
   Zap,
   Activity,
   Heart,
   Users,
   CheckCircle,
-  Infinity as InfinityIcon,
+  Sparkles,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import HeroSlider from "@/components/HeroSlider";
+import HeroCarousel from "@/components/HeroCarousel";
 import AvailabilityBanner from "@/components/AvailabilityBanner";
 import ReferralSection from "@/components/ReferralSection";
 import ReviewsSection from "@/components/ReviewsSection";
@@ -42,7 +41,7 @@ const imageServices = [
 // Bottom row — gradient cards (no images)
 const gradientServices = [
   {
-    Icon: InfinityIcon,
+    Icon: Sparkles,
     title: "Autism Support",
     description: "Sensory-aware environments and consistent routines for autistic adults.",
     gradient: "from-blue-500 to-blue-700",
@@ -138,14 +137,14 @@ export default function Home() {
     <>
       <Navbar />
 
-      {/* SECTION 1 — Hero Slider */}
-      <HeroSlider />
+      {/* SECTION 1 — Hero Carousel */}
+      <HeroCarousel />
 
       {/* Availability Banner */}
       <AvailabilityBanner />
 
       {/* SECTION 2 — Trust bar */}
-      <section className="bg-envico-navy py-5">
+      <section className="bg-[#0d1b2a] py-5">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {trustItems.map((item) => (

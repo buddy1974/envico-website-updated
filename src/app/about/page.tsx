@@ -299,6 +299,25 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Stats bar */}
+      <section className="py-12 bg-[#0d1b2a] text-white">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { value: "6", label: "Supported Living Beds" },
+              { value: "24/7", label: "Staffed Support" },
+              { value: "CQC", label: "Registered & Regulated" },
+              { value: "Hayes", label: "Middlesex" },
+            ].map(({ value, label }) => (
+              <div key={label}>
+                <div className="text-3xl font-black text-envico-gold mb-1">{value}</div>
+                <div className="text-sm text-gray-300">{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 bg-envico-blue text-white text-center">
         <div className="max-w-2xl mx-auto px-6">
