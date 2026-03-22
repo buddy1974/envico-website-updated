@@ -47,7 +47,7 @@ export default function PortalLoginPage() {
         return;
       }
 
-      window.location.href = "https://envico-dashboard.vercel.app";
+      window.location.href = "https://envico-dashboard.vercel.app/login";
     } catch {
       setError("Connection error. Please try again.");
     } finally {
