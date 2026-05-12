@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -17,6 +17,10 @@ import {
   ChevronRight,
   Clock,
   ShieldCheck,
+  Mic,
+  MicOff,
+  CheckCircle,
+  RotateCcw,
 } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_CAREOS_API;
@@ -302,17 +306,93 @@ function LoginScreen({ onLogin }: { onLogin: (token: string, name: string) => vo
   );
 }
 
-// ─── Message Panel ────────────────────────────────────────────────────────────
+// ─── Message Panel — Senior-Friendly Voice + Text ────────────────────────────
+
+type VoiceStep = "idle" | "listening" | "preview" | "sending" | "sent";
+
+// Web Speech API type shim for environments missing lib.dom.speech.d.ts
+type SpeechRecognitionCtor = new () => {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  start(): void;
+  stop(): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onresult: ((e: any) => void) | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onerror: ((e: any) => void) | null;
+  onend: (() => void) | null;
+};
+
+function getSpeechAPI(): SpeechRecognitionCtor | null {
+  if (typeof window === "undefined") return null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const w = window as any;
+  return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
+}
 
 function MessagePanel({ token }: { token: string }) {
-  const [text, setText] = useState("");
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState("");
+  const [text, setText]             = useState("");
+  const [voiceStep, setVoiceStep]   = useState<VoiceStep>("idle");
+  const [isSending, setIsSending]   = useState(false);
+  const [transcript, setTranscript] = useState("");
+  const [error, setError]           = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const srRef                       = useRef<any>(null);
 
+  // Combined message text — typed OR dictated
+  const finalMessage = transcript || text;
+
+  const speechSupported = Boolean(getSpeechAPI());
+
+  const startListening = () => {
+    const SpeechAPI = getSpeechAPI();
+    if (!SpeechAPI) return;
+    const sr = new SpeechAPI();
+    sr.lang = "en-GB";
+    sr.continuous = false;
+    sr.interimResults = false;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    sr.onresult = (e: any) => {
+      const result = (e.results?.[0]?.[0]?.transcript as string) ?? "";
+      setTranscript(result);
+      setVoiceStep("preview");
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    sr.onerror = (e: any) => {
+      if (e.error !== "aborted") setError("Microphone error. Please type your message instead.");
+      setVoiceStep("idle");
+    };
+
+    sr.onend = () => {
+      setVoiceStep((prev) => prev === "listening" ? "idle" : prev);
+    };
+
+    srRef.current = sr;
+    sr.start();
+    setVoiceStep("listening");
+    setError("");
+    setTranscript("");
+  };
+
+  const stopListening = () => {
+    srRef.current?.stop();
+    setVoiceStep("idle");
+  };
+
+  const retryVoice = () => {
+    setTranscript("");
+    setText("");
+    setVoiceStep("idle");
+  };
+
+  // ── Send message ────────────────────────────────────────────────────────
   const sendMessage = async () => {
-    if (!text.trim()) return;
-    setSending(true);
+    const msg = finalMessage.trim();
+    if (!msg) return;
+    setIsSending(true);
     setError("");
     try {
       const res = await fetch(`${API}/api/family/message`, {
@@ -321,46 +401,135 @@ function MessagePanel({ token }: { token: string }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ message: text.trim() }),
+        body: JSON.stringify({ message: msg }),
       });
       if (!res.ok) throw new Error();
-      setSent(true);
-      setText("");
-      setTimeout(() => setSent(false), 4000);
+      setVoiceStep("sent");
+      setTimeout(() => {
+        setVoiceStep("idle");
+        setIsSending(false);
+        setText("");
+        setTranscript("");
+      }, 5000);
     } catch {
       setError("Message failed to send. Please call 020 8797 9974.");
-    } finally {
-      setSending(false);
+      setIsSending(false);
     }
   };
 
+  // ── Sent confirmation ───────────────────────────────────────────────────
+  if (voiceStep === "sent") {
+    return (
+      <div className="flex flex-col items-center justify-center py-6 gap-4">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+          <CheckCircle size={36} className="text-green-600" />
+        </div>
+        <div className="text-center">
+          <p className="text-lg font-bold text-gray-900">Message Sent!</p>
+          <p className="text-sm text-gray-500 mt-1">
+            The care team will get back to you within one working day.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Preview step — show transcript for review ───────────────────────────
+  if (voiceStep === "preview" && transcript) {
+    return (
+      <div className="space-y-4">
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+          <p className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-2">
+            🎙️ Your message — please check it&apos;s correct:
+          </p>
+          <p className="text-base text-gray-900 leading-relaxed">{transcript}</p>
+        </div>
+
+        {error && (
+          <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{error}</p>
+        )}
+
+        <div className="flex gap-3">
+          <button
+            onClick={retryVoice}
+            className="flex items-center gap-2 flex-1 justify-center border border-gray-300 text-gray-700 font-semibold py-3 rounded-xl hover:bg-gray-50 transition-colors text-sm"
+          >
+            <RotateCcw size={15} />
+            Try Again
+          </button>
+          <button
+            onClick={sendMessage}
+            disabled={isSending}
+            className="flex items-center gap-2 flex-1 justify-center bg-envico-green text-white font-bold py-3 rounded-xl hover:bg-envico-green-dark transition-colors disabled:opacity-60 text-sm"
+          >
+            <Send size={15} />
+            {isSending ? "Sending…" : "Send This ✓"}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Default / idle — show both voice and text options ──────────────────
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
+      {/* Big voice button */}
+      {speechSupported && (
+        <button
+          onClick={voiceStep === "listening" ? stopListening : startListening}
+          className={`w-full flex flex-col items-center justify-center gap-2 py-6 rounded-2xl border-2 font-bold transition-all ${
+            voiceStep === "listening"
+              ? "bg-red-50 border-red-400 text-red-700 animate-pulse"
+              : "bg-blue-50 border-blue-300 text-envico-blue hover:bg-blue-100"
+          }`}
+          aria-label={voiceStep === "listening" ? "Stop recording" : "Tap to speak a message"}
+        >
+          {voiceStep === "listening" ? (
+            <>
+              <MicOff size={32} />
+              <span className="text-base">Tap to Stop</span>
+              <span className="text-xs font-normal text-red-600">🔴 Listening — speak your message…</span>
+            </>
+          ) : (
+            <>
+              <Mic size={32} />
+              <span className="text-base">Tap to Speak</span>
+              <span className="text-xs font-normal text-gray-500">Speak your message — we&apos;ll send it for you</span>
+            </>
+          )}
+        </button>
+      )}
+
+      {/* Divider */}
+      <div className="flex items-center gap-3">
+        <div className="flex-1 border-t border-gray-200" />
+        <span className="text-xs text-gray-400 font-medium">or type below</span>
+        <div className="flex-1 border-t border-gray-200" />
+      </div>
+
+      {/* Text fallback */}
       <textarea
         rows={3}
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Type your message to the care team..."
+        placeholder="Type your message to the care team here…"
         className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-envico-blue resize-none"
       />
-      {sent && (
-        <p className="text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
-          ✅ Message sent — the care team will respond within one working day.
-        </p>
-      )}
+
       {error && (
-        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
-          {error}
-        </p>
+        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{error}</p>
       )}
-      <button
-        onClick={sendMessage}
-        disabled={sending || !text.trim()}
-        className="flex items-center gap-2 bg-envico-green text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-envico-green-dark transition-colors disabled:opacity-50"
-      >
-        <Send size={14} />
-        {sending ? "Sending..." : "Send Message"}
-      </button>
+
+      {text.trim() && (
+        <button
+          onClick={sendMessage}
+          disabled={isSending}
+          className="flex items-center gap-2 bg-envico-green text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-envico-green-dark transition-colors disabled:opacity-50"
+        >
+          <Send size={14} />
+          {isSending ? "Sending…" : "Send Message"}
+        </button>
+      )}
     </div>
   );
 }
@@ -748,7 +917,6 @@ export default function FamilyPortalPage() {
   const [familyName, setFamilyName] = useState("Family Member");
   const [hydrated, setHydrated] = useState(false);
 
-  // Restore session from localStorage after hydration
   useEffect(() => {
     const storedToken = localStorage.getItem(TOKEN_KEY);
     const storedName = localStorage.getItem(NAME_KEY);
@@ -771,7 +939,6 @@ export default function FamilyPortalPage() {
     setFamilyName("Family Member");
   };
 
-  // Avoid SSR mismatch
   if (!hydrated) return null;
 
   if (!token) {

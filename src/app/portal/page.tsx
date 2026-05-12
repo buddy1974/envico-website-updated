@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Eye, EyeOff, Shield, AlertCircle } from "lucide-react";
 
+const API_BASE = process.env.NEXT_PUBLIC_CAREOS_API ?? "https://envico-backend.onrender.com";
+
 export default function PortalLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +24,7 @@ export default function PortalLoginPage() {
 
     try {
       const res = await fetch(
-        "https://envico-backend.onrender.com/api/auth/login",
+        `${API_BASE}/api/auth/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -182,7 +184,7 @@ export default function PortalLoginPage() {
       <p className="mt-6 text-sm text-gray-500">
         Are you a professional making a referral?{" "}
         <Link href="/#referral" className="text-envico-green font-medium hover:underline">
-          Submit a referral →
+Submit a referral →
         </Link>
       </p>
     </div>
