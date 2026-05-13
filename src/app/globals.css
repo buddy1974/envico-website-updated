@@ -25,6 +25,23 @@ body {
   padding-top: 32px; /* accessibility toolbar height */
 }
 
+/* Utility: clears the fixed navbar stack (toolbar 32px + navbar 64px mobile / 80px desktop) */
+.nav-offset {
+  padding-top: calc(32px + 64px); /* mobile default */
+}
+@media (min-width: 640px) {
+  .nav-offset {
+    padding-top: calc(32px + 80px); /* sm: navbar is h-20 */
+  }
+}
+
+/* Smooth mobile drawer transitions */
+@media (max-width: 1279px) {
+  .mobile-drawer-open {
+    overflow: hidden;
+  }
+}
+
 /* Accessibility toolbar classes */
 .high-contrast {
   filter: contrast(1.5);
