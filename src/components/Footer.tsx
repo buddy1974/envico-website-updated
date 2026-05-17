@@ -26,7 +26,7 @@ export default function Footer() {
   return (
     <footer className="bg-envico-dark text-gray-300 pt-16 pb-8">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
           {/* Brand */}
           <div>
             <Image
@@ -77,6 +77,38 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          {/* For Families */}
+          <div>
+            <h4 className="font-semibold mb-4" style={{ color: '#6ee07a' }}>For Families</h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/portal/family" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <span>👨‍👩‍👧</span> Family Portal
+                </Link>
+              </li>
+              <li>
+                <Link href="/portal/family" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <span>📋</span> Care Plan Access
+                </Link>
+              </li>
+              <li>
+                <Link href="/portal/family" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <span>💬</span> Message the Team
+                </Link>
+              </li>
+              <li>
+                <Link href="/portal/family" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <span>📊</span> View Medications
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <span>❤️</span> About Our Care
+                </Link>
+              </li>
             </ul>
           </div>
 

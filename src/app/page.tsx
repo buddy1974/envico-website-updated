@@ -158,6 +158,25 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Family Portal Banner */}
+      <section
+        className="w-full border-b-2"
+        style={{ background: '#e8f5e9', borderColor: '#3a8a3a' }}
+      >
+        <div className="max-w-7xl mx-auto px-6 py-[14px] flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-center sm:text-left" style={{ fontSize: '15px', color: '#1a4a1a', fontWeight: 500 }}>
+            👨‍👩‍👧 Are you a family member of one of our residents?
+          </p>
+          <Link
+            href="/portal/family"
+            className="flex-shrink-0 w-full sm:w-auto text-center text-white font-semibold transition-opacity hover:opacity-90"
+            style={{ background: '#3a8a3a', borderRadius: '9999px', padding: '10px 24px', fontSize: '14px' }}
+          >
+            Access Family Portal →
+          </Link>
+        </div>
+      </section>
+
       {/* SECTION 3 — Services */}
       <section id="services" className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">

@@ -82,6 +82,15 @@ export default function Navbar() {
             {/* Desktop CTAs */}
             <div className="hidden xl:flex items-center gap-3">
               <Link
+                href="/portal/family"
+                className="text-sm font-semibold border-2 px-[22px] py-[10px] rounded-full transition-all duration-200"
+                style={{ borderColor: '#3a8a3a', color: '#3a8a3a', backgroundColor: 'white' }}
+                onMouseEnter={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.backgroundColor='#3a8a3a'; el.style.color='white'; }}
+                onMouseLeave={(e) => { const el = e.currentTarget as HTMLAnchorElement; el.style.backgroundColor='white'; el.style.color='#3a8a3a'; }}
+              >
+                👨‍👩‍👧 Family Portal
+              </Link>
+              <Link
                 href="/portal"
                 className="text-sm font-semibold border-2 border-envico-navy text-envico-navy px-4 py-2 rounded-lg hover:bg-envico-navy hover:text-white transition-all duration-200"
               >
@@ -97,6 +106,14 @@ export default function Navbar() {
 
             {/* Mobile: CTA + hamburger */}
             <div className="flex xl:hidden items-center gap-2">
+              <Link
+                href="/portal/family"
+                className="text-xs font-semibold border-2 px-3 py-1.5 rounded-full transition-colors"
+                style={{ borderColor: '#3a8a3a', color: '#3a8a3a', backgroundColor: 'white' }}
+                onClick={() => setMobileOpen(false)}
+              >
+                👨‍👩‍👧 Family
+              </Link>
               <Link
                 href="/#referral"
                 className="text-xs font-bold bg-envico-green text-white px-3 py-1.5 rounded-lg hover:bg-envico-green-dark transition-colors"
@@ -171,11 +188,19 @@ export default function Navbar() {
         {/* Drawer footer CTAs */}
         <div className="p-4 border-t border-gray-100 flex flex-col gap-2.5">
           <Link
+            href="/portal/family"
+            className="text-sm font-semibold text-center border-2 px-4 py-3 rounded-full transition-all"
+            style={{ borderColor: '#3a8a3a', color: '#3a8a3a' }}
+            onClick={() => setMobileOpen(false)}
+          >
+            👨‍👩‍👧 Family Portal
+          </Link>
+          <Link
             href="/portal"
             className="text-sm font-semibold text-center border-2 border-envico-navy text-envico-navy px-4 py-3 rounded-xl hover:bg-envico-navy hover:text-white transition-all"
             onClick={() => setMobileOpen(false)}
           >
-            Portal Login
+            Staff Portal Login
           </Link>
           <Link
             href="/#referral"
