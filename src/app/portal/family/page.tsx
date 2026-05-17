@@ -23,7 +23,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 
-const API = process.env.NEXT_PUBLIC_CAREOS_API;
+const API = process.env.NEXT_PUBLIC_CAREOS_API ?? "https://envico-backend.onrender.com";
 const TOKEN_KEY = "envico_family_token";
 const NAME_KEY = "envico_family_name";
 
