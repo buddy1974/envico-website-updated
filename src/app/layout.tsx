@@ -12,7 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://envico.maxpromo.digital"),
+  metadataBase: new URL("https://envicosl.co.uk"),
   title: "Envico Supported Living | CQC Registered Care in Hayes",
   description:
     "Person-centred supported living for adults with learning disabilities, autism and complex needs. CQC registered. Hayes, Middlesex.",

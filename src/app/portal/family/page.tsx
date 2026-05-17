@@ -283,7 +283,22 @@ function LoginScreen({ onLogin }: { onLogin: (token: string, name: string) => vo
             </button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-gray-100 text-center">
+          {/* Demo quick access */}
+          <div className="mt-4 pt-4 border-t border-gray-100">
+            <p className="text-xs text-center text-gray-400 mb-2">Quick demo access</p>
+            <button
+              type="button"
+              onClick={() => {
+                setEmail("family.demo@envicosl.co.uk");
+                setPassword("london2026");
+              }}
+              className="w-full border-2 border-dashed border-green-300 text-green-700 text-sm font-semibold py-2.5 rounded-xl hover:bg-green-50 transition-colors"
+            >
+              👨‍👩‍👧 View Demo Family Account
+            </button>
+          </div>
+
+          <div className="mt-4 pt-4 border-t border-gray-100 text-center">
             <p className="text-xs text-gray-500">
               Need help accessing your account?
             </p>
